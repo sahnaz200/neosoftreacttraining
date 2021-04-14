@@ -1,0 +1,87 @@
+//Class based components provides us several life cycle methods, 
+//which at various stages are invoke automatically telling us that component has reached that state
+
+//constructor() -- when component gets start for construction
+
+// componentDidMount() -- when component is successfully created then it gets called, we write this function to know weither our component is successfully created or not(there are some error)
+//                     -- props will receive in this function
+
+//componentDidUpdate() -- when we update the component then this function will get called
+
+//componentWillUnmount() -- when component is going out of the screen then this function will get called
+
+//<Navbar>Hello kajol</Navbar>  -- here 'Hello kajol' is children component and we can access it in component page like {props.children}
+
+//List of events in react -- find it on google
+
+
+
+
+
+
+
+
+
+Hooks (It is used in functional component)
+//We can not update functional components using state. So there react hooks came to update screen for functional component.
+//react hooks -- are some methods that provide state feature in functional component. 
+//ex - useState(), 
+//var [a, abc] = useState()  -- a is the property and abc is handler function to update the value of a
+
+//useEffect() -- it is another hook method. Works similar to componentDidMount() and componentDidUpdate() methods of class component.
+//Means whenever functional component is mounted and updated then this function will get call. 
+    useEffect(()=>{
+        alert('Mounted and Updated')
+    })
+
+// If we do not want to call useEffect() on update then we have to pass 2nd argument as blank array like below
+    useEffect(()=>{
+        alert('Mounted and Updated')
+    },[])
+
+
+
+
+
+
+
+
+
+
+
+//Passing method references between components 
+var [user,setUser]=useState();
+  function LoginDone(data){
+    setUser(data)
+
+  }
+<Navbar user={user} /> -- in navbar.js -- {props.user}
+<Login informlogin={LoginDone}/> -- in login.js -- {props.informlogin("kajol")}
+
+// in above example data is going from login page to navbar.
+//informlogin={LoginDone} -- Passing method references from app to login component
+
+
+
+
+// conditional rendering -- rendering some element based on the condition
+
+
+
+//Work flow of react - 1st index.html gets called -> index.js inside div id='root' app component gets created
+
+
+
+
+
+//If you write alert("constructor") in constructor then you can see this alert comes 2 times
+// -- bcoz rendering happens in 2 stagesand this is because of StrictMode(written in index.js), 
+//1st stage(pre-rendering) - it checks that is there is any error or not
+//2nd stage(rendering) - render data into DOM
+
+
+
+Registration details in my-app
+//sahnazbegum100@gmail.com
+//123
+
