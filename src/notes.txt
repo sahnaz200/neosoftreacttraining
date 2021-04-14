@@ -81,7 +81,5 @@ var [user,setUser]=useState();
 
 
 
-Registration details in my-app
-//sahnazbegum100@gmail.com
-//123
+
 
