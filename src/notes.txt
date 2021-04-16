@@ -3,7 +3,7 @@
 
 //constructor() -- when component gets start for construction
 
-// componentDidMount() -- when component is successfully created then it gets called, we write this function to know weither our component is successfully created or not(there are some error)
+// componentDidMount() -- when component is successfully created then it gets called, we write this function to know weither our component is successfully created or not(there are some error or not)
 //                     -- props will receive in this function
 
 //componentDidUpdate() -- when we update the component then this function will get called
@@ -78,6 +78,64 @@ var [user,setUser]=useState();
 // -- bcoz rendering happens in 2 stagesand this is because of StrictMode(written in index.js), 
 //1st stage(pre-rendering) - it checks that is there is any error or not
 //2nd stage(rendering) - render data into DOM
+
+
+
+//We need to make api hit to get response data
+//url, method, requestObject - mandatory (requestObject structure should match the structure provided by api developer)
+//responseObject - this we see it by ourself
+//To make network calls we use a package called axios
+
+
+How to use axios :
+
+npm install axios
+import axios
+call axios() whenever you want to call an api
+
+
+axios -- it accepts objects with minimus 2 or 3 keys
+axios({method: "get", url: "apiurl"})
+axios({method: "post", url: "apiurl", data:{} }) //key data is mandatory in post method
+
+
+
+
+
+
+
+
+
+
+
+
+//If you find that useState/setState are not updating immediately, the answer is simple: they’re just queues(asyncronus nature).
+//React useState and setState don’t make changes directly to the state object; 
+//they create queues to optimize performance, which is why the changes don’t update immediately.
+
+
+Solution for setState :
+pass a callback function as 2nd parameter to the setState method and do all action inside that callback function.
+
+
+Solution for useState :
+let Hello = ()=>{
+    setName('kajol')
+    console.log("Name is inside setName : ",name) //undefined
+}
+
+useEffect(() => { //This hook function will only activate if the values in the list(dependencies) change. 
+                  //Meas whenever value of [name] this list gets changed then only this function will get called.
+    console.log("Name is inside useEffect : ",name) //kajol
+  }, [name]);
+
+
+
+
+//npm install react-router react-router-dom -> to install router
+
+//Those component which are passed as a prop in route tag, route tag adds extra properties to them on routing
+
 
 
 

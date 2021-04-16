@@ -5,9 +5,9 @@ class Signup extends Component{
     constructor(){
         super()
         this.state ={
-          
         }
         //alert("constructor");
+        console.log("state value >>>>" , this.state)
     }
 
     /*componentDidMount(){
@@ -48,20 +48,21 @@ class Signup extends Component{
                 method:"post",
                 data: this.user
             }).then((response)=>{
-                console.log("response fromsignup api : ",response.data)
+                console.log("response from signup api : ", response.data)
             }, (error)=>{
-                console.log("response fromsignup api : ",error)
+                console.log("response from signup api : ", error)
             })
            /*this.setState({
                errorMessage:null
            })*/
         }
-        console.log("...... user details" , this.user)
+        //console.log("...... user details" , this.user)
        
     }
     render(){
         return(
             <div style={{width:"50%" , margin:"auto"}}>
+                <h3 className="text-center">Register</h3>
                 <div className="form-group">
                     <label>Name</label>
                 <input type="text" class="form-control" onChange={this.getName}></input>

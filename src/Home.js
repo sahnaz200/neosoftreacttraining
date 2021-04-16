@@ -1,7 +1,6 @@
 import Carousel from './Carousel';
 import Cake from './Cake';
 //import cakes from './data';
-import CakeDetails from './CakeDetails';
 //import {useState} from 'react';
 import axios from "axios"
 import {useState, useEffect} from 'react';
@@ -16,15 +15,16 @@ var obj={
 function Home(){
 
     let apiurl ="https://apibyashu.herokuapp.com/api/allcakes"
-    var [cakes,setCakes]=useState();  
+    var [cakes,setCakes]=useState([]);  
 
     useEffect(()=>{
         axios({
             url:apiurl,
             method:"get"
         }).then((response)=>{
-            console.log("response from cakes api : ",response.data)
+            //console.log("response from cakes api : ",response.data)
             setCakes(response.data.data)
+            
         }, (error)=>{
             console.log("response from cakes api : ",error)
         })
@@ -32,7 +32,6 @@ function Home(){
     return(
         <div>
             <Carousel></Carousel>
-            <CakeDetails />
             <div className="row text-center">
                 
                 {/* <div className="col-sm-2"><Cake name="chocholate Tuffle" image="card.jpg"/></div> */}
