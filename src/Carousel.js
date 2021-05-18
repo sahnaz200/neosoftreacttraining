@@ -1,13 +1,12 @@
-var img1 = "nav_img4.jpg"
-var img2 = "nav_img5.jpg"
-var img3 = "nav_img6.jpg"
+var img1 = "nav_img1.jpg"
+var img2 = "nav_img2.jpg"
+var img3 = "nav_img3.jpg"
 var carouselStyle = {
     height: "400px"
 }
 function Carousel(){
     return(
-
-        <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+        <div id="carouselExampleIndicators" className="carousel slide " data-ride="carousel">
             <ol className="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -18,10 +17,10 @@ function Carousel(){
                 <img className="d-block w-100" src={img1} alt="First slide" style={carouselStyle} />
                 </div>
                 <div className="carousel-item">
-                <img className="d-block w-100" src={img2} alt="Second slide" height="400" />
+                <img className="d-block w-100" src={img2} alt="Second slide" style={carouselStyle} />
                 </div>
                 <div className="carousel-item">
-                <img className="d-block w-100" src={img3} alt="Third slide" height="400" />
+                <img className="d-block w-100" src={img3} alt="Third slide" style={carouselStyle} />
                 </div>
             </div>
             <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -32,7 +31,8 @@ function Carousel(){
                 <span className="carousel-control-next-icon" aria-hidden="true"></span>
                 <span className="sr-only">Next</span>
             </a>
-            </div>
+            <hr style={{marginTop: "0px"}}/>
+        </div>
     )
 }
 

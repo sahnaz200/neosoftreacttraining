@@ -1,0 +1,264 @@
+npm install redux-saga
+
+sagas are those functions which are called before any specific dispatch
+
+dispatch({
+    type: "ADDTOCART"
+})
+i will do some kind of mapping that only the mapped saga will be called for ADDTOCART dispatch
+Redux saga provides us with the mechanism to implement mapping of sagas with specific dispatch actions
+
+
+Generator functions are those which holds values and paush execution. 
+means once you run the function then there will be some code which return some value and in 2nd time call execution will start from where the function was paushed.
+To paush the execution 'yield' keyword is used
+
+inside saga to dispatch an action we use keyword 'put'
+
+
+components work will to request data from store and show the data in UI that's it. 
+All bussiness logic means call api to get data etc will have to be done in middleware(saga)
+
+
+react side effects - all work(ex. - call to api etc) except showing data on screen are known as side effects. All side effects should be written in middleware functions.
+
+
+Intersector - If we have to do any work in between a request hit. like add token in header
+
+Lezzy loading
+
+error Bounderes - If in run time any error comes then in place of error some screen should come that is error Bounderes.
+
+
+
+work flow of saga
+Login.js -> store.js -> sagas.js in LoginSaga() 
+
+
+
+function generator(i){
+    console.log("aaaaaaaaaaaaa")
+    yield i;
+
+    console.log("bbbbbbbbbbbbb")
+    yield i + 10;
+
+
+    console.log("cccccccccccc")
+}
+
+const gen = generator(10)
+
+console.log(gen.next().value) 
+aaaaaaaaaaaaa
+10
+
+console.log(gen.next().value) 
+bbbbbbbbbbbbb
+20
+
+console.log(gen.next()) 
+cccccccccccc
+
+
+
+
+
+
+npm install react-paginate --save
+
+
+
+
+
+
+
+
+
+thunk - Action dispatch krne ki jagah ayse functions ko call krna jo action dispatch karenge after some task
+
+dispatch(abc())
+
+function abc(){
+    return (dispatch)=>{
+        //Kuch check krne ke baad
+        dispatch({
+
+        })
+    }
+}
+Thunks is a function that wraps a function to delay it's execution
+
+Using thunk we can dispatch functions and those functions can later on dispatch actions. In this way we can use those functions to delay the actual task.
+When to use saga or thunk 
+    - when we have to do only api calls then can use saga. If we have to do some calculation or array filter then can use thunk.
+    - in thunk we have to call the function explicitly but in saga funtion which contains action gets called implicitly
+
+
+
+
+
+
+
+
+
+
+
+
+Higher Order component - A pattern where a function takes a component as an argument and returns a new component. It is used to share common functionalities between components without repeat same code.
+const EnhancedComponent = higherOrderComponent(WrappedComponent);
+
+
+
+
+
+
+
+
+
+Regular component - It does not implement the shouldComponentUpdate method. It always return true by default.
+
+
+Pure component - It implements the shouldComponentUpdate method with shallow props and state comparison.
+
+Shallow Comparison(SC)
+    -- Premitive Types ---- a (SC) b returns true if a and b have the same value and are of same type.
+    -- Complex Types(objects or arrays) ---- a (SC) b returns true if a and b reference the exact same object.
+
+
+
+Pure component --
+    SC of PrevState with CurrentState --- If there is difference then component will re-render
+    SC of PrevProps with CurrentProps --- If there is difference then component will re-render
+
+
+Pure component prevent unnessasary re-renders and gives performance boost
+
+
+- In function component - SC happens for useState but not for props. For props we need to use React.memo (React.memo - it only does shallow comparison of props)
+- In class component for state and props both SC does not happen. We need to use Pure component to do that.
+
+
+
+
+
+
+
+
+
+
+// Fragment - DOM me render nehi hote, 
+//          - jab multiple element return krni hoti
+we can write it like <React.Fragment></React.Fragment> or <></>
+
+
+
+
+
+
+Context API - It provides a way to pass data throgh the component tree without having to pass props down manually at every level.
+We can pass default value also at the time of creation. Component will show the default value when he does not find provider above it's component tree.
+
+--we can show context by 1. consumer component, 2. contextType, 3. usecontext() [it is a hook so can not use it in class component]
+
+--- using contextType there are 2 limitation, 
+    -- 1. it will only work for class component 
+    -- 2. you can subscribe a single context only using contextType.
+
+
+
+
+React animation - have to do myself
+
+
+Have to do :
+
+reference
+Lazzy loading
+
+
+
+project
+- login, signup, forgot, cake list, search , add / remove cart, order place, cake details, my orders
+
+
+
+
+
+
+let baseURL = process.env.REACT_APP_API_BASE_URL
+baseURL + '/'
+
+
+
+
+
+controlled form - whenever we take values from input controls or form and when we update that on state immediately that are known as controlled form.
+
+
+
+
+//To show the selected value in dropdown
+var [state, getState] = useState("mumbai") //this value getting from database
+let getState = (e) =>{
+    getState(e.target.value)
+}
+
+<select value={state} onChange={getState}>
+    <option value="goa">Goa</option>
+    <option value="delhi">Delhi</option>
+    <option value="mumbai">Mumbai</option>
+    <option value="pune">Pune</option>
+</select>
+
+
+
+
+
+
+
+ref - Refs provide a way to access DOM nodes or React elements created in the render method.
+
+var inputRef = React.createRef() // Create a ref
+var inputRef = useRef() // This another way to create reference. useRef() is a hook.
+<input ref={inputRef} />
+
+var element = inputRef.current // To get the input element
+
+Difference between using id/class vs ref => Using ref we can pass that element to other component but using id or class we can not do that.
+-- Using state also we can pass element to other components but using setState the whole component and it's all child component will get re-render, that is inefficient.
+
+
+function handleinput(){
+    var element = inputRef.current
+    element.focus()
+    element.classList()
+}
+
+
+
+
+
+
+
+
+
+Combining Multiple Reducers
+
+ - You can make more than one Reducer
+ - In store,
+  import a class called combineReducers -> import {combineReducers} from "redux"
+    var reducers = combineReducers({reducer1, reducer2})
+    export createStore(reducers, middleware)
+
+
+    When you had just one reducer then store.getState() will returns an object like {}
+    But if you combine multiple reducers then store.getState() will return like {reducer1:{}, reducer2:{}}
+
+
+
+
+
+
+
+

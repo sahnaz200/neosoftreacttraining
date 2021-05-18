@@ -1,0 +1,57 @@
+
+
+Mutable and Immuatable array or state :
+If an item is mutable, modifying the copy also modifies the original. If it’s immutable, modifying the copy does not affect the original.
+
+
+Mutable :
+
+const fruits = ['orange', 'apple', 'lemon'];
+fruits.unshift('banana'); // = ['banana', 'orange', 'apple', 'lemon']
+
+
+Immutable :
+
+const fruits = ['orange', 'apple', 'lemon'];
+const newFruits = ['banana', ...fruits]; // = ['banana', 'orange', 'apple', 'lemon']
+
+
+-- If you have to add something into an array in redux state then use concat() method. If you have to remove something from array in redux state then use filter() method.
+
+
+
+
+
+
+
+
+
+
+
+
+useReducer() - An alternative to useState. Accepts a reducer of type (state, action) => newState, 
+and returns the current state paired with a dispatch method.
+
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}

@@ -36,3 +36,154 @@
     transform: rotate(360deg);
   }
 }
+
+.disabled-link {
+  pointer-events: none;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+.light-warning {
+  background-color: #edce73;
+}
+.nav-bar-style {
+  font-size: 18px;
+  font-weight: 500;
+}
+.checkout-heading {
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.website-heading {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  line-height: 1em;
+  /* Shadows are visible under slightly transparent text color */
+  color: rgb(221 173 37 / 80%);
+  text-shadow: 1px 4px 6px #ebddb7, 0 0 0 #000, 1px 4px 6px #ebddb7;
+}
+
+.website-heading:hover {
+  color: #917911;
+  border-color: #917911;
+}
+
+.cursor-default {
+  cursor: default;
+}
+.spinner-extra-style {
+  position: fixed;
+  z-index: 1031;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.react-confirm-alert-overlay.remove_from_cart {
+  background: rgb(255 255 255 / 68%) !important;
+  align-items: inherit !important;
+}
+.remove_from_cart .react-confirm-alert {
+  margin-top: 40px !important;
+}
+.remove_from_cart .react-confirm-alert-body > h1 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+}
+.remove_from_cart .react-confirm-alert-button-group {
+  justify-content: center !important;
+}
+.remove_from_cart .react-confirm-alert-body {
+  text-align: center !important;
+}
+.font-500 {
+  font-weight: 500;
+}
+
+
+
+
+/* Pegination */
+.paginationBttns {
+  margin-top: 1rem;
+  /* width: 80%; */
+  /* height: 40px; */
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 2px;
+  color: #2b2eff;
+  cursor: pointer;
+    text-decoration: none;
+    line-height: 1.25;
+
+    font-size: 0.9rem;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    transition: all 0.3s linear;
+
+    color: #043d76 !important;
+    border-radius: 12px;
+  
+}
+
+.paginationBttns a:hover {
+  color: white !important;
+  background-color: #eee;
+  border-radius: 0.125rem;
+  transition: all 0.3s linear;
+  font-size: 0.9rem;
+  border: 0;
+    outline: 0;
+  text-decoration: none;
+}
+
+.paginationActive a {
+  color: white  !important;
+  background-color: #4285f4;
+    border-radius: 0.125rem;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    transition: all 0.2s linear;
+    font-size: 0.9rem;
+    border: 0;
+    outline: 0;
+}
+
+.paginationActive a:hover {
+  color: white !important;
+  background-color: #4285f4;
+  border-radius: 0.125rem;
+    transition: all 0.3s linear;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    border: solid 1px #043d76;
+    font-size: 0.9rem;
+}
+
+
+.paginationDisabled a {
+  color: #043d76;
+  background-color: transparent;
+  border:0px;
+}
+
+.paginationBttns .paginationDisabled a:hover {
+  color: #043d76 !important;
+  background-color: transparent  !important;
+}
+
+.admin_link button:hover{
+  color: white;
+}

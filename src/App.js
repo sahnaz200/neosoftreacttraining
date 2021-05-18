@@ -1,17 +1,17 @@
-
-
-import logo from './logo.svg';
+import React, {Suspense} from 'react';
 import './App.css';
 import Navbar from './Navbar'
 import Home from './Home';
 import Signup from './Signup';
-import Showdata from './Showdata'; //component name's 1st letter always should be in caps.
-
 import Login from './Login';
-import {useState} from 'react';
+import Checkout from './Checkout'
+import {useEffect, useState} from 'react';
 import Search from './Search';
 import CakeDetails from './CakeDetails';
-import PageNotFound from './PageNotFound';
+import Cart from './Cart';
+import MyOrders2 from './MyOrders2'
+import MyOrders from './MyOrders';
+import ForgotPassword from './ForgotPassword';
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,55 +20,109 @@ import {
   Redirect
 } from "react-router-dom";
 
-function App() {
+import { GuardProvider, GuardedRoute } from 'react-router-guards';
+import axios from "./axiosinterceptor"
+import {connect} from 'react-redux'
+import ErrorBoundary from './ErrorBoundary'
 
-  var [user,setUser]=useState();
-  var [login,setLogin]=useState(false);
-  function LoginDone(data){
-    setUser(data.name)
-    setLogin(true)
-  }
+var SuspendedAdmin = React.lazy(()=>import('./Admin'))
+function App(props) {
+  var baseurl = process.env.REACT_APP_BASE_URL
+  const [cartLoading, setCartLoading] = useState(false);
 
+  useEffect(() => {
+    
+    setCartLoading(true);
+    var token = localStorage.token;
+    if(token && !props.user){
+      axios({
+          url:baseurl + '/getuserdetails',
+          method:"get",
+          headers : {
+            authtoken: token
+        }
+      }).then((response)=>{
+          props.dispatch({
+            type:"INITIALIZE_USER",
+            payload:response.data.data
+        })
+          
+      }, (error)=>{
+          console.log("response from get user details api : ",error)
+      })
+      
+    }
 
-  
-//Router will look for /path into the address bar and load corresponding component
+    let getCartDetailsAPI = baseurl + "/cakecart"
+      axios({
+          url:getCartDetailsAPI,
+          method:"post",
+          data: {},
+          headers : {
+              authtoken: token
+          }
+      }).then((response)=>{
+          props.dispatch({
+            type:"CART_DATA",
+            cart_data:response.data.data
+        }) 
+        setCartLoading(false);
+      }, (error)=>{
+          console.log("response from cake deatils api : ",error)
+          setCartLoading(false);
+      })
+      
+  }, [props.token]);
 
-//From all the elemnets on whatever element-click you want to go somewhere wrap that element in <Link> tag
+  const requireLogin = (to, from, next) => {
+    if (to.meta.auth) {
+      if (localStorage.token) {
+        next();
+      }
+      next.redirect('/login');
+    } else {
+      next();
+    }
+  };
+
   return (
     <div>
-        
+      <ErrorBoundary>
     <Router>
-      <Navbar islogin={login} user_name={user} />
-      <div>
+      <Navbar />
+      <GuardProvider guards={[requireLogin]} >
         <Switch>
-        <Route path="/" exact component={Home} /> {/* If i remove exact word then it will load all components whose route path starts with '/' */}
-        <Route path="/login" exact><Login islogin={login} informlogin={LoginDone}/> </Route>
-        <Route path="/signup" exact component={Signup} />
-        <Route path="/search" exact component={Search} />
-        <Route path="/cake/:cakeid" exact component={CakeDetails} />
+          <GuardedRoute path="/" exact component={Home} />
+          <GuardedRoute path="/login" exact><Login/> </GuardedRoute>
+          <GuardedRoute path="/signup" exact component={Signup} />
+          <GuardedRoute path="/forgot-password" exact component={ForgotPassword} />
+          <GuardedRoute path="/search" exact component={Search} />
+          <GuardedRoute path="/cart" exact meta={{ auth: true }} ><Cart loading={cartLoading} /></GuardedRoute>
+          <GuardedRoute path="/my-orders2" exact meta={{ auth: true }} ><MyOrders2 /></GuardedRoute>
+          <GuardedRoute path="/my-orders" exact meta={{ auth: true }} ><MyOrders /></GuardedRoute>
+          <GuardedRoute path="/checkout" meta={{ auth: true }} ><Checkout loading={cartLoading} /></GuardedRoute>
+          <GuardedRoute path="/cake/:cakeid" exact component={CakeDetails} />
 
-        {/* <Route path="/*" exact component={PageNotFound} /> */}
+          <GuardedRoute path="/admin" exact >
+            <Suspense fallback={<div>Loading...</div>}>
+              <SuspendedAdmin />
+            </Suspense>
+          </GuardedRoute>
 
-        <Route path="/*"> 
-          <Redirect to="/"></Redirect>
-        </Route>
+          <Route path="/*"> 
+            <Redirect to="/"></Redirect>
+          </Route>
         </Switch>
-      </div>
-
+        </GuardProvider>
     </Router>
-
+    </ErrorBoundary>
   </div>
   );
-  {/*return (
-    <div className="App">
-        <Navbar islogin={login} user={user} />
-        <Login islogin={login} informlogin={LoginDone}/>
-        <Search />
-        <Signup />
-         <Showdata /> 
-        <Home />
-      </div>
-  );*/}
 }
 
-export default App;
+export default connect(function(state, props){
+  return {
+    user: state?.user,
+    token: state?.user?.token
+  }
+})(App);

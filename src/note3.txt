@@ -1,0 +1,103 @@
+Context API 
+
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+
+How it works ?
+React.createContext() is all you need. It returns a consumer and a provider. 
+Provider is a component that provides the state to its children. 
+It will hold the "store" and be the parent of all the components that might need that store. 
+Consumer is a component that consumes and uses the state.
+
+
+
+API
+
+React.createContext - 
+const MyContext = React.createContext(defaultValue);
+Creates a Context object. The defaultValue argument is only used when a component does not have a matching Provider above it in the tree
+
+Context.Provider - 
+<MyContext.Provider value={/* some value */}>
+The Provider component accepts a value prop to be passed to consuming components. One Provider can be connected to many consumers. 
+
+
+Class.contextType - 
+MyClass.contextType = MyContext;
+Using this property lets you consume the value of that Context type using this.context.
+
+Context.Consumer - 
+<MyContext.Consumer>
+  {value => /* render something based on the context value */}
+</MyContext.Consumer>
+Requires a function as a child. The function receives the current context value and returns a React node.
+
+Hook
+useContext() - 
+const value = useContext(MyContext);
+Accepts a context object and returns the current context value for that context. 
+
+
+
+
+
+
+
+
+
+
+
+saga
+
+Redux-saga is a redux middleware, that is designed to make handling side effects in your redux app. 
+It achieves this by using an ES6 feature called Generators, allowing us to write asynchronous code that looks synchronous, and is very easy to test.
+So why should we use redux-saga? 
+Contrary to redux thunk, you don’t end up in callback hell, you can test your asynchronous flows easily and your actions stay pure.
+
+Work flow :
+
+create saga middleware and pass that to store
+create an action which is an object and dispatch it. 
+reducer will deal with this type of actions and saga will call a generator function with that action type
+from saga call to API should be triggered and based on the response it will dispatch another action ex. for sucess or failure 
+reducer will deal with this action and update the state
+
+
+
+
+
+Thunk
+
+Redux Thunk is middleware that allows you to dispatch functions, rather than just actions. 
+Those functions can later on dispatch actions. In this way we can use those functions to delay the actual task.
+
+Work flow :
+
+Apply thunk middleware to the store using applyMiddleware() 
+dispatch a thunk function
+from thunk function it will do some action and dispatch the action
+it will go to reducer and update the state
+
+
+
+
+
+
+When to use saga or thunk 
+    - when we have to do only api calls then can use saga. If we have to do some calculation or array filter then can use thunk.
+    - in thunk we have to call the function explicitly but in saga funtion which contains action gets called implicitly
+
+
+
+
+
+
+
+
+
+Redux - it is a state management tool
+why we use redux -> Single source of truth(means there will be just one store and from that store only all the data should pass to all components)
+Only reducers are allowed to update the state
+Components will displatch actions and that request will go to reducer and then reducer will do that from store.
+To connect reducer with store we need to pass reducer function in createStore()
+
