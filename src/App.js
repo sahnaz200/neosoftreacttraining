@@ -31,7 +31,7 @@ function App(props) {
   const [cartLoading, setCartLoading] = useState(false);
 
   useEffect(() => {
-    
+    document.title = "The Cake Shop";
     setCartLoading(true);
     var token = localStorage.token;
     if(token && !props.user){
@@ -52,7 +52,7 @@ function App(props) {
       })
       
     }
-
+    
     let getCartDetailsAPI = baseurl + "/cakecart"
       axios({
           url:getCartDetailsAPI,
